@@ -12,7 +12,7 @@ from tqdm import tqdm
 
 import modules
 from modules import script_callbacks
-from modules.ui import create_sampler_and_steps_selection, create_seed_inputs, create_refresh_button
+from modules.ui_common import create_refresh_button
 from modules import shared, sd_samplers
 from modules.processing import StableDiffusionProcessingImg2Img, get_fixed_seed
 from modules.devices import torch_gc
@@ -186,10 +186,27 @@ def add_tab():
                     size = gr.Slider(label='Size', minimum=512, maximum=1024, step=8, value=512)
                     alpha = gr.Slider(label='% Region Increase', minimum=0, maximum=3, step=0.1, value=1)
 
-                steps, sampler_index = create_sampler_and_steps_selection(modules.sd_samplers.samplers, 'vid-faceswap')
+                # Create sampler and steps selection manually
+                with gr.Row():
+                    steps = gr.Slider(minimum=1, maximum=150, step=1, label="Sampling steps", value=20)
+                    sampler_names = [sampler.name for sampler in modules.sd_samplers.samplers]
+                    sampler_index = gr.Dropdown(label='Sampling method', choices=sampler_names, value=sampler_names[0])
+
                 cfg_scale = gr.Slider(label='CFG Scale', minimum=1, maximum=30, step=0.5, value=7)
                 denoising_strength = gr.Slider(label='Denoising Strength', minimum=0, maximum=1, step=0.01, value=0.2)
-                seed, _, subseed, _, subseed_strength, seed_resize_from_h, seed_resize_from_w, seed_checkbox = create_seed_inputs('txt2img')
+
+                # Create seed inputs manually
+                with gr.Row():
+                    seed = gr.Number(label='Seed', value=-1, precision=0)
+                    seed_checkbox = gr.Checkbox(label='Extra', value=False)
+
+                with gr.Group(visible=False) as seed_extras:
+                    with gr.Row():
+                        subseed = gr.Number(label='Variation seed', value=-1, precision=0)
+                        subseed_strength = gr.Slider(label='Variation strength', value=0.0, minimum=0, maximum=1, step=0.01)
+                    with gr.Row():
+                        seed_resize_from_h = gr.Slider(minimum=0, maximum=2048, step=64, label="Resize height from", value=0)
+                        seed_resize_from_w = gr.Slider(minimum=0, maximum=2048, step=64, label="Resize width from", value=0)
 
                 with gr.Group(elem_id="vid_faceswap_script_container"):
                     custom_inputs = modules.scripts.scripts_img2img.setup_ui()

@@ -1,7 +1,30 @@
-## vid-faceswap
+## vid-faceswap (Updated Fork)
+
+**⚠️ IMPORTANT: This is an updated fork of the original vid-faceswap extension that fixes compatibility issues with SD WebUI 1.10.1+**
 
 This extension is for AUTOMATIC1111's [Stable Diffusion web UI](https://github.com/AUTOMATIC1111/stable-diffusion-webui).
 It adds a tab dedicated to faceswapping of videos.
+
+### 🚀 What's Fixed in This Fork
+
+This version fixes the following issues that occur in the original extension with SD WebUI 1.10.1+:
+
+1. **Fixed missing `create_sampler_and_steps_selection` import** - Replaced with manual UI creation
+2. **Fixed missing `create_seed_inputs` import** - Replaced with manual seed input controls
+3. **Fixed `moviepy.editor` import error** - Updated to use correct `moviepy` import path
+4. **Updated for SD WebUI 1.10.1+ compatibility** - Works with the latest stable-diffusion-webui versions
+
+### 📦 Installation
+
+**From this fork (recommended for SD WebUI 1.10.1+):**
+1. Open "Extensions" tab in SD WebUI
+2. Open "Install from URL" tab
+3. Enter: `https://github.com/bpawnzZ/vid-faceswap.git`
+4. Press "Install" button
+5. Restart Web UI
+
+**From original (may not work with SD WebUI 1.10.1+):**
+Use the original URL: `https://github.com/dchatel/vid-faceswap`
 
 <img width="960" alt="" src="interface.png">
 
@@ -9,13 +32,9 @@ Example of swap from Anya Taylor-Joy to Scarlett Johansson, using denoising stre
 
 [![Anya Talor-Joy to Scarlett Johansson](https://img.youtube.com/vi/TipAErBhazg/hqdefault.jpg)](https://youtu.be/TipAErBhazg)
 
-### Install
+### 🛠️ Additional Installation Steps
 
-1. Open "Extensions" tab.
-2. Open "Install from URL" tab in the tab.
-3. Enter URL of this repo to "URL for extension's git repository".
-4. Press "Install" button.
-5. (optional) install rife-ncnn-vulkan-python
+5. **(optional) Install rife-ncnn-vulkan-python** for frame interpolation
 6. Restart Web UI.
 
 #### What is rife-ncnn-vulk-python and how to install it ?
@@ -38,5 +57,20 @@ On windows, pip will likely give you an error, as it will not be able to compile
 
 ### Supported file formats
 
-- Anything supported by ffmpeg (mp4, mkv, webm, gif, etc.) 
+- Anything supported by ffmpeg (mp4, mkv, webm, gif, etc.)
 - Animated webp
+
+---
+
+### 🔧 Technical Details
+
+**Changes made in this fork:**
+- **Line 15 in `scripts/vid_faceswap.py`**: Changed import from `modules.ui` to `modules.ui_common` for `create_refresh_button`
+- **Lines 189-209 in `scripts/vid_faceswap.py`**: Replaced `create_sampler_and_steps_selection` and `create_seed_inputs` with manual UI creation
+- **Line 5 in `scripts/video.py`**: Fixed `moviepy.editor` import to use `moviepy` directly
+
+**Compatibility:** Tested with SD WebUI 1.10.1
+
+**Original Repository:** https://github.com/dchatel/vid-faceswap
+
+**Maintained by:** [bpawnzZ](https://github.com/bpawnzZ)

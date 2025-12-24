@@ -2,7 +2,7 @@ from tqdm import tqdm
 import cv2
 from pathlib import Path
 from webp import WebPData, WebPAnimDecoder, WebPAnimDecoderOptions, WebPColorMode, mimread
-from moviepy.editor import VideoFileClip, AudioFileClip, ImageSequenceClip
+from moviepy import VideoFileClip, AudioFileClip, ImageSequenceClip
 
 def video_reader(file, max_fps=None):
     if Path(file).suffix.lower() == '.webp':
