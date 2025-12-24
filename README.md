@@ -43,10 +43,22 @@ RIFE stands for Real-Time Intermediate Flow Estimation. This will allows you to 
 
 vid-faceswap uses it to save stable-diffusion image generations, which are costly, and then interpolate the missing frames. This also leads to better videos with less temporal incoherence issues.
 
-On linux, you can simply run the following command:
-```pip install rife-ncnn-vulkan-python```
+### Linux Installation:
+```bash
+# Standard installation (may work for most users)
+pip install rife-ncnn-vulkan-python
 
+# If you encounter CMake policy errors, use:
+CMAKE_POLICY_VERSION_MINIMUM=3.31 /path/to/your/python -m pip install rife-ncnn-vulkan-python
+
+# Example with SD WebUI conda environment:
+CMAKE_POLICY_VERSION_MINIMUM=3.31 /home/insomnia/miniconda/envs/sd-webui/bin/python -m pip install rife-ncnn-vulkan-python
+```
+
+### Windows Installation:
 On windows, pip will likely give you an error, as it will not be able to compile rife. So, instead you can [download the last version of RIFE](https://github.com/media2x/rife-ncnn-vulkan-python/releases). Don't forget to click "show all assets" if windows versions do not show up. Extract the whl file contained in the zip and run the command: ```pip install path-to-extracted-whl-file```
+
+**Note:** Replace `/path/to/your/python` with your actual Python executable path (e.g., from your conda/virtual environment).
 
 ### Usage tips
 
