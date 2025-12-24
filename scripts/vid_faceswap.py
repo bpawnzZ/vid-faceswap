@@ -89,7 +89,8 @@ def process_video(
         do_not_save_grid=True,
         seed=get_fixed_seed(seed),
         steps=steps,
-        sampler_name=sd_samplers.samplers_for_img2img[sampler_index].name,
+        # Convert sampler name to sampler object
+        sampler_name = sampler_index,  # sampler_index is already the sampler name from dropdown
         seed_enable_extras=seed_checkbox,
         subseed=get_fixed_seed(subseed),
         subseed_strength=subseed_strength,
